@@ -1,4 +1,5 @@
-﻿from random import randint   
+#16.0
+from random import randint   
 import matplotlib.pyplot as plt
 import time
 
@@ -50,6 +51,7 @@ while True:
     print('2. Calc - calculate max points from your own size and rules')
     print('3. Stat - еry to go through as many games as possible and display statistics')
     print('4. Pres - add your preseted mine to stat mode!')
+    print('\nWrite "menu" to show this screen again')
     print('\nIf you done, quit by typing "q"')
     mode = input('\nPlease, select mode (play, calc, stat, pres or quit (q): ')
     if mode.upper() == 'Q':
