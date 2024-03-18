@@ -2,6 +2,9 @@
 from random import randint   
 import matplotlib.pyplot as plt
 import time
+import RSapper
+import Presets
+import PythonCode
 
 def menu():
     mode = ''
@@ -21,7 +24,7 @@ def stat():
 
     if version.upper() == 'N':
         print('Used Python')
-        import PythonCode
+        PythonCode.python_code_def()
     elif version.upper() == 'Y':
         print('Used Cython')
         import Sapper145
@@ -61,11 +64,11 @@ while True:
     if mode.upper() == 'CALC':
         calc()
     if mode.upper() == 'PLAY':
-        import RSapper
+        RSapper.rsapper_def()
     if mode.upper() == 'MENU':
         menu()
     if mode.upper() == 'PRES':
-        import Presets
+        Presets.presets_def()
 
 
 
