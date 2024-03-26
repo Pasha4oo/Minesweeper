@@ -1,4 +1,4 @@
-#16.0
+#16.1
 from random import randint   
 import matplotlib.pyplot as plt
 import time
@@ -52,22 +52,22 @@ while True:
     print("\nMods:")
     print('1. Play - feel yourself like a real sapper in this small game')
     print('2. Calc - calculate max points from your own size and rules')
-    print('3. Stat - еry to go through as many games as possible and display statistics')
+    print('3. Stat - analyzes different game options and displays data')
     print('4. Pres - add your preseted mine to stat mode!')
     print('\nWrite "menu" to show this screen again')
     print('\nIf you done, quit by typing "q"')
     mode = input('\nPlease, select mode (play, calc, stat, pres or quit (q): ')
     if mode.upper() == 'Q':
         break
-    if mode.upper() == 'STAT':
+    if mode.upper() == 'STAT' or mode == '3':
         stat()
-    if mode.upper() == 'CALC':
+    if mode.upper() == 'CALC' or mode == '2':
         calc()
-    if mode.upper() == 'PLAY':
+    if mode.upper() == 'PLAY' or mode == '1':
         RSapper.rsapper_def()
     if mode.upper() == 'MENU':
         menu()
-    if mode.upper() == 'PRES':
+    if mode.upper() == 'PRES' or mode == '4':
         Presets.presets_def()
 
 
