@@ -2,6 +2,7 @@ def presets_def():
     from random import randint   
     import matplotlib.pyplot as plt
     import time
+    import json
 
     desk = []                       
     points = {}
@@ -210,7 +211,7 @@ def presets_def():
     print('Time', time.time() - start_time)
 
     while True:
-        setting = input('(graph, scatter, quit: )')
+        setting = input('(graph, scatter, save, quit: )')
         if setting.upper() == 'GRAPH':
             plt.xlabel('Move number', fontsize=16)
             plt.ylabel(r'Points', fontsize=16)
@@ -226,7 +227,11 @@ def presets_def():
             graph = 0
         if setting.upper() == 'QUIT':
             break
-
+        if setting.upper() == 'SAVE':
+            save_name = input('Please, set name of your save: ')
+            with open(save_name, 'w') as f:
+                json.dump(finish_number_storage, f)
+                print(f'Saved as {save_name}')
 
 
 

@@ -1,7 +1,13 @@
+from os import name
+
+
 def python_code_def():
     from random import randint   
     import matplotlib.pyplot as plt
     import time
+    import json
+
+    new_or_load = input("New file or load save? (New or 'Your_save_name'): ")
 
     desk = []                       
     points = {}
@@ -23,9 +29,21 @@ def python_code_def():
     finish_new_stuff =[0]
     setting = 0
 
-    n = int(input('Please, set n: '))                                             
-    m = int(input('Please, set m: '))
-    number_bombs = int(input(f'Please, set number of the bombs (< {n*m}): '))
+    def load(name2):
+        try:
+            with open(new_or_load + '_' +name2) as f:
+                print(f"{new_or_load + '_' + name2} successfully loaded")
+                i = json.load(f)
+                return i
+        except FileNotFoundError:
+            print(f"{new_or_load + '_' + name2} doesn`t found")
+    if new_or_load.upper() == 'NEW':
+        n = int(input('Please, set n: '))
+        m = int(input('Please, set m: '))
+    if new_or_load.upper() == 'NEW':
+        number_bombs = int(input(f'Please, set number of the bombs (< {n*m}): '))
+    else:
+        number_bombs = int(input(f'Please, set number of the bombs: '))
     number_runs = int(input('Please, set number of runs: '))
     eliminate = input('Eliminate small values? (The score table will be incorrect) (Y or N): ')
 
@@ -35,6 +53,19 @@ def python_code_def():
         def pos(self):
             if number_for_points == random_number + self.place and random_number + self.place not in random_number_storage:
                 points[random_number + self.place] += 1
+
+    if new_or_load.upper() == 'NEW':
+        pass
+    else:
+        finish_number_storage = load('finish_number_storage')
+        finish_scores = load('finish_scores')
+        finish_new_stuff = load('finish_new_stuff')
+        result_scores = load('result_scores')
+        result_scores_2 = load('result_scores_2')
+        n = load('n')
+        m = load('m')
+        finish_score = load('finish_score')
+        nop = load('nop')
 
     right = Pos(1)
     left = Pos(- 1)
@@ -132,11 +163,11 @@ def python_code_def():
                     continue
             else:
                 break
-
-        finish_score = sum(points.values())      
+ 
+        finish_score = sum(points.values())
         if int(finish_score) >= int(nop):      
             nop = 0
-            nop = finish_score + 1         #Смотрит: была ли комбинация лучше всех предыдущих? Если так перезаписывает переменные, которые позже будут показываться как лучший результат
+            nop = finish_score + 1         
             result_scores = desk[:]
             finish_new_stuff = new_stuff[:]
             finish_number_storage = random_number_storage[:]
@@ -162,26 +193,60 @@ def python_code_def():
     print(result_scores_2)
     print(result_scores)
     integer = 1
+
     while integer <= n*m:
-        if integer not in range(n,n*m,n):
-            if integer != n*m+1:
-                if integer not in finish_number_storage:
-                    print(f"{result_scores_2[integer]} ", end='')
-                else:
-                    print('@ ', end='')
-        else:
-                if integer not in finish_number_storage:
-                    print(f"{result_scores_2[integer]} ")
-                else:
-                    print('@ ')
-        integer += 1
+        try:
+            if integer not in range(n,n*m,n):
+                if integer != n*m+1:
+                    if integer not in finish_number_storage:
+                        print(f"{result_scores_2[integer]} ", end='')
+                    else:
+                        print('@ ', end='')
+            else:
+                    if integer not in finish_number_storage:
+                        print(f"{result_scores_2[integer]} ")
+                    else:
+                        print('@ ')
+            integer += 1
+        except KeyError:
+            if integer not in range(n,n*m,n):
+                if integer != n*m+1:
+                    if integer not in finish_number_storage:
+                        print(f"{result_scores_2[str(integer)]} ", end='')
+                    else:
+                        print('@ ', end='')
+            else:
+                    if integer not in finish_number_storage:
+                        print(f"{result_scores_2[str(integer)]} ")
+                    else:
+                        print('@ ')
+            integer += 1
     print(f"\nMax score: {sorted(finish_scores)[-1:]}")
     print(not_finish_points_score)
     print(finish_new_stuff)
     print('Time', time.time() - start_time)
 
+    class Save():
+        def __init__(self, name, name2):
+            self.name = name
+            self.name2 = name2
+        def save(self):
+            with open(save_name + "_" + self.name2, 'w') as f:
+                json.dump(self.name, f)
+                print(f"Saved as {save_name + '_' + self.name2}")
+    
+    finish_number_storage_save = Save(finish_number_storage, 'finish_number_storage')
+    finish_scores_save = Save(finish_scores, 'finish_scores')
+    finish_new_stuff_save = Save(finish_new_stuff, 'finish_new_stuff')
+    result_scores_save = Save(result_scores, 'result_scores')
+    result_scores_2_save = Save(result_scores_2, 'result_scores_2')
+    n_save = Save(n, 'n')
+    m_save = Save(m, 'm')
+    finish_score_save = Save(finish_score, 'finish_score')
+    nop_save = Save(nop, 'nop')
+
     while True:
-        setting = input('(graph, scatter, quit: )')
+        setting = input('(graph, scatter, save, quit): ')
         if setting.upper() == 'GRAPH':
             plt.xlabel('Move number', fontsize=16)
             plt.ylabel(r'Points', fontsize=16)
@@ -197,8 +262,14 @@ def python_code_def():
             graph = 0
         if setting.upper() == 'QUIT':
             break
-
-
-
-
-
+        if setting.upper() == 'SAVE':
+            save_name = input('Please, set name of your save: ')
+            finish_number_storage_save.save()
+            finish_scores_save.save()
+            finish_new_stuff_save.save()
+            result_scores_save.save()
+            result_scores_2_save.save()
+            n_save.save()
+            m_save.save()
+            finish_score_save.save()
+            nop_save.save()

@@ -1,4 +1,4 @@
-#16.1
+#17
 from random import randint   
 import matplotlib.pyplot as plt
 import time
@@ -56,7 +56,7 @@ while True:
     print('4. Pres - add your preseted mine to stat mode!')
     print('\nWrite "menu" to show this screen again')
     print('\nIf you done, quit by typing "q"')
-    mode = input('\nPlease, select mode (play, calc, stat, pres or quit (q): ')
+    mode = input('\nPlease, select mode (play, calc, stat, pres or quit (q)): ')
     if mode.upper() == 'Q':
         break
     if mode.upper() == 'STAT' or mode == '3':
