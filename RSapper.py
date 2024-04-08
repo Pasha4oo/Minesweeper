@@ -17,8 +17,27 @@ def rsapper_def():
     choose_f = -1
     choosed_f = []
     opened_numbers = []
+    flag_place = 0
+    flag_places = []
 
-
+    def screen():
+        integer = 1
+        while integer <= n*m:
+            if integer not in range(n,n*m,n):
+                if integer in flag_places:
+                    print('F ', end='')
+                elif integer in opened or integer in opened_numbers:
+                    print(f"{points[integer]} ", end='')
+                else:
+                    print('@ ', end='')
+            else:
+                if integer in flag_places:
+                    print('F ')
+                elif integer in opened or integer in opened_numbers:
+                    print(f"{points[integer]} ")
+                else:
+                    print('@ ')
+            integer += 1
 
     class Pos():
         def __init__(self, place):
@@ -129,31 +148,58 @@ def rsapper_def():
 
     opened = []
 
-    while integer <= n*m:
-        if integer not in range(n,n*m,n):
-            if integer not in random_number_storage:
-                print(f"{points[integer]} ", end='')
-            else:
-                print('@ ', end='')
-        else:
-            if integer not in random_number_storage:
-                print(f"{points[integer]} ")
-            else:
-                print('@ ')
-        integer += 1
+    screen()
 
 
     while True:
+        if sorted(random_number_storage) == sorted(flag_places):
+            print('YOU WON!')
+            while integer <= n*m:
+                integer = 1
+                if integer not in range(n,n*m,n):
+                    if integer not in random_number_storage:
+                        print(f"{points[integer]} ", end='')
+                    else:
+                        print('@ ', end='')
+                else:
+                    if integer not in random_number_storage:
+                        print(f"{points[integer]} ")
+                    else:
+                        print('@ ')
+            break
         choose = int(input('COORDS: '))
-        if choose not in opened and choose not in opened_numbers:
+        if choose == 0:
+            flag_place = int(input('F_COORDS: '))
+            integer = 1
+            if flag_place not in flag_places and flag_place not in opened and flag_place not in opened_numbers:
+                flag_places.append(flag_place)
+            elif flag_place in flag_places:
+                flag_places.remove(flag_place)
+            else:
+                print('\nAlready opened, cant place flag')
+            screen()
+            continue
+        elif choose not in opened and choose not in opened_numbers:
             if points[choose] == 0:
                 opened.append(choose)
             else:
                 opened_numbers.append(choose)
-            if choose in random_number_storage:
+            if choose in random_number_storage and choose not in flag_places:
                 print("YOU LOOOOSE!")
+                while integer <= n*m:
+                    integer = 1
+                    if integer not in range(n,n*m,n):
+                        if integer not in random_number_storage:
+                            print(f"{points[integer]} ", end='')
+                        else:
+                            print('@ ', end='')
+                    else:
+                        if integer not in random_number_storage:
+                            print(f"{points[integer]} ")
+                        else:
+                            print('@ ')
                 break
-            else:
+            elif choose not in random_number_storage and choose not in flag_places:
                 for op in opened:
                     if op in range(2,n-1):                                                                      
                         left_.pos()
@@ -214,20 +260,15 @@ def rsapper_def():
                         right_down_.pos()
                 print(opened)
                 print(opened_numbers)
-                integer = 1
                 print('\n')
-                while integer <= n*m:
-                    if integer not in range(n,n*m,n):
-                        if integer in opened or integer in opened_numbers:
-                            print(f"{points[integer]} ", end='')
-                        else:
-                            print('@ ', end='')
-                    else:
-                        if integer in opened or integer in opened_numbers:
-                            print(f"{points[integer]} ")
-                        else:
-                            print('@ ')
-                    integer += 1
-
+                for f in flag_places:
+                    if f in opened_numbers:
+                        opened_numbers.remove(f)
+                    if f in opened:
+                        opened.remove(f)
+                screen()
+                print(flag_places)
+            elif choose in flag_places:
+                print('\nFlag there!')
 
 
