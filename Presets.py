@@ -9,7 +9,6 @@ def presets_def():
     number = 1
     again = 0
     again_2 = 0
-    angle = [1,9,73,81]
     finish_score = 0
     finish_scores = []
     result_scores = [0]
@@ -18,7 +17,6 @@ def presets_def():
     random_number_storage = [100]
     finish_number_storage =[]
     not_finish_points_score = 0
-    stuff = 0
     nop = 0
     new_stuff = []
     finish_new_stuff =[0]

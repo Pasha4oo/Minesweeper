@@ -1,4 +1,4 @@
-#17
+#17.1
 from random import randint   
 import matplotlib.pyplot as plt
 import time
@@ -7,8 +7,6 @@ import Presets
 import PythonCode
 
 def menu():
-    mode = ''
-    calc_mode = ''
 
     print("\n██╗░░██╗██╗  ████████╗██╗░░██╗███████╗██████╗░███████╗\n██║░░██║██║  ╚══██╔══╝██║░░██║██╔════╝██╔══██╗██╔════╝\n███████║██║  ░░░██║░░░███████║█████╗░░██████╔╝█████╗░░\n██╔══██║██║  ░░░██║░░░██╔══██║██╔══╝░░██╔══██╗██╔══╝░░\n██║░░██║██║  ░░░██║░░░██║░░██║███████╗██║░░██║███████╗\n╚═╝░░╚═╝╚═╝  ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝╚══════╝")
     print("""
@@ -59,16 +57,18 @@ while True:
     mode = input('\nPlease, select mode (play, calc, stat, pres or quit (q)): ')
     if mode.upper() == 'Q':
         break
-    if mode.upper() == 'STAT' or mode == '3':
+    elif mode.upper() == 'STAT' or mode == '3':
         stat()
-    if mode.upper() == 'CALC' or mode == '2':
+    elif mode.upper() == 'CALC' or mode == '2':
         calc()
-    if mode.upper() == 'PLAY' or mode == '1':
+    elif mode.upper() == 'PLAY' or mode == '1':
         RSapper.rsapper_def()
-    if mode.upper() == 'MENU':
+    elif mode.upper() == 'MENU':
         menu()
-    if mode.upper() == 'PRES' or mode == '4':
+    elif mode.upper() == 'PRES' or mode == '4':
         Presets.presets_def()
+    else:
+        print('Incorect input')
 
 
 

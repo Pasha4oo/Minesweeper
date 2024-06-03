@@ -1,6 +1,5 @@
 from os import name
 
-
 def python_code_def():
     from random import randint   
     import matplotlib.pyplot as plt
@@ -14,7 +13,6 @@ def python_code_def():
     number = 1
     again = 0
     again_2 = 0
-    angle = [1,9,73,81]
     finish_score = 0
     finish_scores = []
     result_scores = [0]
@@ -23,7 +21,6 @@ def python_code_def():
     random_number_storage = [100]
     finish_number_storage =[]
     not_finish_points_score = 0
-    stuff = 0
     nop = 0
     new_stuff = []
     finish_new_stuff =[0]
@@ -67,14 +64,17 @@ def python_code_def():
         finish_score = load('finish_score')
         nop = load('nop')
 
-    right = Pos(1)
-    left = Pos(- 1)
-    down = Pos(n)
-    up = Pos(- n)
-    right_down = Pos((n+1))
-    left_down = Pos((n-1))
-    right_up = Pos(- (n-1))
-    left_up = Pos(- (n+1))
+    try:
+        right = Pos(1)
+        left = Pos(- 1)
+        down = Pos(n)
+        up = Pos(- n)
+        right_down = Pos((n+1))
+        left_down = Pos((n-1))
+        right_up = Pos(- (n-1))
+        left_up = Pos(- (n+1))
+    except Exception:
+        return 0
 
     start_time = time.time()
 

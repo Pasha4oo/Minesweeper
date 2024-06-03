@@ -14,8 +14,6 @@ def rsapper_def():
     again = 0
     integer = 1
     number = 1
-    choose_f = -1
-    choosed_f = []
     opened_numbers = []
     flag_place = 0
     flag_places = []
@@ -73,6 +71,8 @@ def rsapper_def():
     left_down = Pos((n-1))
     right_up = Pos(- (n-1))
     left_up = Pos(- (n+1))
+
+    print('TYPE 0 to set flag!')
 
     while number <= n*m:
         desk.append(number)
